@@ -11,7 +11,7 @@ import {
 const _path = process.cwd();
 export const rule = {
 	qrCodeLogin: {
-		reg: `^#(扫码|二维码|辅助)(登录|绑定|登陆)$`,
+		reg: `^#?(扫码|二维码|辅助)(登录|绑定|登陆)$`,
 		describe: "扫码登录"
 	},
 	UserPassMsg: {
@@ -32,6 +32,9 @@ export const rule = {
 
 
 export async function payOrder(e, { render }) {
+	e._reply = e.reply
+	await e.reply("暂不支持");
+	return false;
 	let Mys = new mys(e)
 	if (/(商品|充值)列表/.test(e.msg)) {
 		return await Mys.showgoods({ render })
@@ -59,7 +62,7 @@ export async function qrCodeLogin(e, { render }) {
 	let res = await Mys.qrCodeLogin()
 	if (!res?.data) return false;
 	e._reply = e.reply
-	let sendMsg = [segment.at(e.user_id), '\n请扫码以完成绑定\n']
+	let sendMsg = [segment.at(e.user_id), '\n请及时保存后扫码以完成绑定\n']
 	e.reply = (msg) => {
 		sendMsg.push(msg)
 	}
@@ -71,7 +74,7 @@ export async function qrCodeLogin(e, { render }) {
 		scale: 1.2, retMsgId: true
 	})
 	let r = await e._reply(sendMsg)
-	utils.recallMsg(e, r, 30) //默认30，有需要请自行修改
+	utils.recallMsg(e, r, 25) //默认30，有需要请自行修改
 	e.reply = e._reply
 	res = await Mys.GetQrCode(res.data.ticket)
 	if (!res) return true;
@@ -81,11 +84,14 @@ export async function qrCodeLogin(e, { render }) {
 
 
 export async function UserPassMsg(e) {
+	e._reply = e.reply
+	await e.reply("不推荐使用该功能,请使用#扫码登录");
+	return false;
 	if (!e.isPrivate) {
 		return false;
 	}
 	let Mys = new mys(e)
-	await Mys.UserPassMsg()
+	// await Mys.UserPassMsg()
 	return true;
 }
 

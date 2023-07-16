@@ -15,7 +15,7 @@ const path_ = `/plugins/xiaoyao-cvs-plugin/resources/common/layout/`;
 export async function help(e, {
 	render
 }) {
-	if (!/图鉴/.test(e.msg) && !Cfg.get("sys.help", false)) {
+	if (!/xy图鉴/.test(e.msg) && !Cfg.get("sys.help", false)) {
 		return false;
 	}
 	let custom = {},
