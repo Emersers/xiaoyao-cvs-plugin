@@ -278,7 +278,7 @@ export default class user {
                         message: '登录失效'
                     }
                 }
-                if (res?.retcode == 1034) {
+                /* if (res?.retcode == 1034) {
                     challenge = await this.bbsGeetest()
                     if (challenge) {
                         forum["headers"] = {
@@ -295,7 +295,7 @@ export default class user {
                     }
                 } else {
                     message += `社区签到: ${res.message}\n`;
-                }
+                } */
                 Bot.logger.mark(`${this.e.user_id}:${this.e.uid}:${forum.name} 社区签到结果: [${res.message}]`);
                 res = await this.getData("bbsPostList", forum, false)
                 sumcount++;
@@ -420,7 +420,7 @@ export default class user {
         let _reply = e.reply
         let msg = e?.msg;
         //暂时先这样吧，等有空再优化~
-        this.allSign = {
+        /* this.allSign = {
             findModel: ["崩坏3", "崩坏2", '原神', '未定事件簿', '崩坏星穹铁道'],
             "崩坏3": {
                 bindGame: 0,
@@ -441,6 +441,29 @@ export default class user {
                 error: 0,
             },
             "未定事件簿": {
+                bindGame: 0,
+                sign: 0,
+                isSign: 0,
+                error: 0,
+            },
+            "崩坏星穹铁道": {
+                bindGame: 0,
+                sign: 0,
+                isSign: 0,
+                error: 0,
+            },
+            sendReply() {
+                let msg = ""
+                for (let item of this.findModel) {
+                    msg +=
+                        `**${item}**\n已签：${this[item].isSign}\n签到成功：${this[item].sign}\n未绑定信息：${this[item].bindGame}\n签到失败异常：${this[item].error}\n`
+                }
+                return msg
+            }
+        } */
+        this.allSign = {
+            findModel: ['原神', '崩坏星穹铁道'],            
+            "原神": {
                 bindGame: 0,
                 sign: 0,
                 isSign: 0,
