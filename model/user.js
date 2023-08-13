@@ -278,7 +278,7 @@ export default class user {
                         message: '登录失效'
                     }
                 }
-                /* if (res?.retcode == 1034) {
+                if (res?.retcode == 1034) {
                     challenge = await this.bbsGeetest()
                     if (challenge) {
                         forum["headers"] = {
@@ -295,7 +295,7 @@ export default class user {
                     }
                 } else {
                     message += `社区签到: ${res.message}\n`;
-                } */
+                }
                 Bot.logger.mark(`${this.e.user_id}:${this.e.uid}:${forum.name} 社区签到结果: [${res.message}]`);
                 res = await this.getData("bbsPostList", forum, false)
                 sumcount++;
