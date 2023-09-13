@@ -284,12 +284,7 @@ export default class user {
                         forum["headers"] = {
                             "x-rpc-challenge": challenge
                         }
-                        res = await this.getData("bbsSign", forum, false)
-                        if (res?.retcode == 1034) {
-                            message += `社区签到: 验证码失败\n`;
-                        } else {
-                            message += `社区签到: 验证码成功\n`;
-                        }
+                        res = await this.getData("bbsSign", forum, false)                        
                     } else {
                         message += `社区签到: 验证码失败\n`;
                     }
@@ -348,7 +343,7 @@ export default class user {
                 if (res?.message && res?.retcode == 0) {
                     Share++;
                 }
-                message += `共读取帖子记录${20 * sumcount}\n浏览：${trueDetail}  点赞：${Vote}  分享：${Share}\n`;
+                message += `读取帖子：${20 * sumcount}  浏览：${trueDetail}  点赞：${Vote}  分享：${Share}\n`;
                 Bot.logger.mark(`\n用户${this.e.user_id}:\n${message}`)
                 await utils.randomSleepAsync(3);
             }
