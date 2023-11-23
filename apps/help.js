@@ -1,11 +1,6 @@
-import {
-	Cfg
-} from "../components/index.js";
+import { Cfg } from "../components/index.js";
 import lodash from "lodash";
-import {
-	currentVersion,
-	changelogs
-} from "../components/Changelog.js";
+import { currentVersion, changelogs } from "../components/Changelog.js";
 import Common from "../components/Common.js";
 import fs from "fs"
 const _path = process.cwd();

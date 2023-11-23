@@ -1,8 +1,6 @@
-import {
-    Cfg
-} from "../components/index.js";
+import { Cfg } from "../components/index.js";
 
-import {AtlasAlias} from '../model/srGallery.js'
+import { AtlasAlias } from '../model/srGallery.js'
 
 
 export async function srAtlasAlias(e,{render}) {
