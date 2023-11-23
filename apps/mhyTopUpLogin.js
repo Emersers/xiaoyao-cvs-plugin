@@ -11,7 +11,7 @@ import {
 const _path = process.cwd();
 export const rule = {
 	qrCodeLogin: {
-		reg: `^#?(扫码|二维码|辅助)(登录|绑定|登陆)$`,
+		reg: `^#(扫码|米(游)?社|mys|二维码)(登录|登陆|绑定)?$`,
 		describe: "扫码登录"
 	},
 	UserPassMsg: {
