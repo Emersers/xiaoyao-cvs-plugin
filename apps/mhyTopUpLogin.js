@@ -1,49 +1,15 @@
-import {
-	isV3
-} from '../components/Changelog.js'
+import {isV3} from '../components/Changelog.js'
 import mys from "../model/mhyTopUpLogin.js"
 import Common from "../components/Common.js";
 import { bindStoken } from './user.js'
 import utils from '../model/mys/utils.js';
-import {
-	Cfg,
-} from "../components/index.js";
+import {Cfg,} from "../components/index.js";
 const _path = process.cwd();
 export const rule = {
 	qrCodeLogin: {
 		reg: `^#(扫码|米(游)?社|mys|二维码)(登录|登陆|绑定)?$`,
 		describe: "扫码登录"
 	},
-	UserPassMsg: {
-		reg: `^#(账号|密码)(密码)?(登录|绑定|登陆)$`,
-		describe: "账号密码登录"
-	},
-	UserPassLogin: {
-		reg: `^账号(.*)密码(.*)$`,
-		describe: "账号密码登录"
-	},
-	payOrder: {
-		/** 命令正则匹配 */
-		reg: '^#?((原神(微信)?充值(微信)?(.*))|((商品|充值)列表)|((订单|查询)(订单|查询)(.*)))$',
-		/** 执行方法 */
-		describe: '原神充值（离线）'
-	}
-}
-
-
-export async function payOrder(e, { render }) {
-	e._reply = e.reply
-	await e.reply("暂不支持");
-	return false;
-	let Mys = new mys(e)
-	if (/(商品|充值)列表/.test(e.msg)) {
-		return await Mys.showgoods({ render })
-	} else if (/(订单|查询)(订单|查询)/.test(e.msg)) {
-		return await Mys.checkOrder()
-	} else if (e.msg.includes('充值')) {
-		return await Mys.GetCode({ render })
-	}
-	return false;
 }
 
 export async function qrCodeLogin(e, { render }) {
@@ -80,30 +46,6 @@ export async function qrCodeLogin(e, { render }) {
 	if (!res) return true;
 	await bindSkCK(e, res)
 	return true;
-}
-
-
-export async function UserPassMsg(e) {
-	e._reply = e.reply
-	await e.reply("不推荐使用该功能,请使用#扫码登录");
-	return false;
-	if (!e.isPrivate) {
-		return false;
-	}
-	let Mys = new mys(e)
-	// await Mys.UserPassMsg()
-	return true;
-}
-
-
-export async function UserPassLogin(e) {
-	if (!e.isPrivate) {
-		return false;
-	}
-	let Mys = new mys(e)
-	let res = await Mys.UserPassLogin();
-	if (res) await bindSkCK(e, res)
-	return res;
 }
 
 export async function bindSkCK(e, res) {
